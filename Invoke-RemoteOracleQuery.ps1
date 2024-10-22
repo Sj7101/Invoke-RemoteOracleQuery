@@ -77,3 +77,28 @@ function Invoke-RemoteOracleQuery {
         Invoke-Command -ComputerName $RemoteComputer -ScriptBlock $ScriptBlock -ArgumentList $SqlQuery, $DataSource, $OracleCredential
     }
 }
+
+<# Example Code 
+
+# Define parameters
+$remoteComputer = "RemoteHostName"
+$sqlQuery = "SELECT * FROM Employees WHERE Department = 'Sales'"
+$dataSource = "YourDataSource"
+
+# Create a PSCredential object for Oracle database
+$oracleUser = "YourUsername"
+$oraclePassword = Read-Host -Prompt "Enter Oracle Password" -AsSecureString
+$oracleCredential = New-Object System.Management.Automation.PSCredential ($oracleUser, $oraclePassword)
+
+# Optionally, create a PSCredential object for the remote computer if needed
+# $credential = Get-Credential
+
+# Execute the function
+$results = Invoke-RemoteOracleQuery -RemoteComputer $remoteComputer -SqlQuery $sqlQuery -DataSource $dataSource -OracleCredential $oracleCredential # -Credential $credential
+
+# Display the results
+$results | Format-Table -AutoSize
+
+
+
+#>
